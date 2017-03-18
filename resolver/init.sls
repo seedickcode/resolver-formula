@@ -3,7 +3,9 @@
 #####################################
 
 {% if salt['pillar.get']('resolver:use_resolvconf', True) %}
-  {% set is_resolvconf_enabled = grains['os_family'] in ('Debian') and salt['pkg.latest_version']('resolvconf') %}
+  {% set is_resolvconf_enabled = grains['os_family'] in ('Debian') and 
+        (salt['pkg.latest_version']('resolvconf') or 
+         salt['pkg.latest_version']('resolvconf')) %}
 {% else %}
   {% set is_resolvconf_enabled = False %}
 {% endif %}
